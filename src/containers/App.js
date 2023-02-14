@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { FormattedMessage } from 'react-intl';
-// import './App.scss'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.scss';
+import Nav from '../components/Nav';
+import HomePage from './HomePage';
+import Contact from './Contact';
+import ListUser from '../Example/ListUser';
+
 
 class App extends Component {
 
@@ -24,22 +29,33 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-                hello from App
-            </div>
+            <Router>
+                <div className='App'>
+                    <Nav />
+                    {/* <HomePage />
+                    <Contact /> */}
+                </div>
+                <Routes>
+                    <Route exact path="/" element={<HomePage />} />
+                    <Route exact path="/Contact" element={<Contact />} />
+                    <Route exact path="/user" element={<ListUser />} />
+                </Routes>
+
+            </Router>
         );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        language: state.app.language,
-    };
-};
+// const mapStateToProps = state => {
+//     return {
+//         language: state.app.language,
+//     };
+// };
 
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
+// const mapDispatchToProps = dispatch => {
+//     return {
+//     };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

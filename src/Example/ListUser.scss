@@ -1,0 +1,38 @@
+.table-container {
+    width: 100%;
+    margin: 5px 0 0 0;
+
+    .table-title {
+        text-transform: uppercase;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .table-content {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th {
+            background-color: orange;
+            text-align: center !important;
+        }
+
+        td,
+        th {
+            border: 1px solid lightcyan;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: lightblue;
+        }
+    }
+}
