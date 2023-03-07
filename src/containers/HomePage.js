@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './HomePage.scss';
 // import { withRouter } from "react-router-dom";
-import Color from '../HOC/Color';
+// import Color from '../HOC/Color';
+
+
 
 class HomePage extends Component {
 
@@ -25,9 +27,28 @@ class HomePage extends Component {
     render() {
         return (
 
-            < div >
-                This is the homePage
-            </div >
+            <div className="container" >
+                <div className="row">
+                    <div className="col-6 form-group">
+                        <label>
+                            Age:
+                        </label>
+                        <input className="form-control"
+                            value={this.state.fullName}
+                            onChange={(event) => this.handleOnChangeInput(event, 'fullName')}
+                        />
+                    </div>
+                    <div className="col-6 form-group">
+                        <label>
+                            Ten:
+                        </label>
+                        <input className="form-control"
+                            value={this.state.fullName}
+                            onChange={(event) => this.handleOnChangeInput(event, 'fullName')}
+                        />
+                    </div>
+                </div>
+            </div>
         );
     }
 }
@@ -45,4 +66,4 @@ class HomePage extends Component {
 
 // export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
 // export default HomePage;
-export default Color(HomePage);
+export default HomePage;

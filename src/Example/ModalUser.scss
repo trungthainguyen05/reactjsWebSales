@@ -1,0 +1,20 @@
+.modal-user {
+    .row-mu-title {
+        .col-mu-title {
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+    }
+
+    .row-mu-body {
+        .input-container {
+            label {
+                // margin-bottom: 5px;
+                padding: 5px 0 5px 5px;
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@ import Nav from '../components/Nav';
 import HomePage from './HomePage';
 import Contact from './Contact';
 import ListUser from '../Example/ListUser';
+import Login from '../auth/Login';
 
 
 class App extends Component {
@@ -32,13 +33,12 @@ class App extends Component {
             <Router>
                 <div className='App'>
                     <Nav />
-                    {/* <HomePage />
-                    <Contact /> */}
                 </div>
                 <Routes>
                     <Route exact path="/" element={<HomePage />} />
                     <Route exact path="/Contact" element={<Contact />} />
                     <Route exact path="/user" element={<ListUser />} />
+                    <Route exact path="/auth/login" element={<Login />} />
                 </Routes>
 
             </Router>
@@ -46,16 +46,15 @@ class App extends Component {
     }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         language: state.app.language,
-//     };
-// };
+const mapStateToProps = state => {
+    return {
+        // language: state.app.language,
+    };
+};
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//     };
-// };
+const mapDispatchToProps = dispatch => {
+    return {
+    };
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

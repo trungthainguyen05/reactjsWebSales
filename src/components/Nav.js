@@ -28,6 +28,7 @@ class Nav extends Component {
                 <NavLink to="/Product" activeclassname="active">Product</NavLink>
                 <NavLink to="/Contact" activeclassname="active">Contact</NavLink>
                 <NavLink to="/user" activeclassname="active">ListUser</NavLink>
+                <NavLink to="/auth/login" activeclassname="active">Login</NavLink>
 
                 {/* <Link to="/">Home</Link>
                 <Link to="/Product">Product</Link>

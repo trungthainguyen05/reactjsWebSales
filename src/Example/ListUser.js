@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './ListUser.scss'
-import { getAllUsers } from '../services/userService'
+import { getAllUsers, getAllcodes } from '../services/userService';
+import ModalUser from './ModalUser';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { connect } from 'react-redux';
+import { ALLCODESTYPE } from '../utils/constant';
 
 class ListUser extends Component {
 
@@ -16,6 +20,18 @@ class ListUser extends Component {
         this.setState({
             listUsers: res && res.userList ? res.userList : []
         })
+
+        let genderList = await this.handleGetAllcodes('GENDER');
+        console.log('>>> Check genderList', genderList)
+
+    }
+
+    handleGetAllcodes = async (inputType) => {
+        if (!inputType) {
+            inputType = 'ALL';
+        }
+        let res = await getAllcodes(inputType);
+        return res
     }
 
     componentDidUpdate(prevProps, PrevState, SnapShot) {
@@ -24,61 +40,106 @@ class ListUser extends Component {
         // }
     }
 
+    handleEditUser = (item) => {
+        // console.log('>>check userItem: ', item)
+        this.props.deleteUserRedux(item);
+    }
+
+    handleDeleteUser = (item) => {
+
+    }
+
     render() {
-        // console.log('>>> Check user List: ', this.state)
+        // console.log('>>> check listUser: ', this.state.listUsers);
+        // console.log('>> Check props: ', this.props)
         let arrUsers = this.state.listUsers
         return (
-            <div className="table-container">
-                <div className="table-title">
-                    list user from server
-                </div>
-                <table className="table-content">
-                    <tbody>
-                        <tr>
-                            <th>No</th>
-                            <th>Last name</th>
-                            <th>First name</th>
-                            <th>Email</th>
-                            <th>Phone number</th>
-                            <th>Address</th>
-                            <th>Gender</th>
-                            <th>Action</th>
-                        </tr>
+            <>
+                <ModalUser />
+                <div className="container table-container">
+                    <div className="row row-table-title">
+                        <div className="col-12 title">
+                            list user from server
+                        </div>
+                    </div>
 
-                        {arrUsers && arrUsers.length > 0 &&
-                            arrUsers.map((item, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{item.id}</td>
-                                        <td>{item.lastName}</td>
-                                        <td>{item.firstName}</td>
-                                        <td>{item.email}</td>
-                                        <td>{item.phonenumber}</td>
-                                        <td>{item.address}</td>
-                                        <td>{item.gender}</td>
-                                        <td>Edit - Delete</td>
+                    <div className="row row-table-content">
+                        <div className="col-12 btn-add-new">
+                            <button className="btn-new">
+                                <span>
+                                    Add new
+                                </span>
+                            </button>
+                        </div>
+
+                        <div className="col-12 col-table-content">
+                            <table className="table-content">
+
+                                <tbody>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Last name</th>
+                                        <th>First name</th>
+                                        <th>Email</th>
+                                        <th>Phone number</th>
+                                        <th>Address</th>
+                                        <th>Gender</th>
+                                        <th>Action</th>
                                     </tr>
-                                )
-                            })
-                        }
 
-                    </tbody>
-                </table>
-            </div>
+                                    {arrUsers && arrUsers.length > 0 &&
+                                        arrUsers.map((item, index) => {
+                                            return (
+                                                <tr key={index}>
+                                                    <td>{item.id}</td>
+                                                    <td>{item.lastName}</td>
+                                                    <td>{item.firstName}</td>
+                                                    <td>{item.email}</td>
+                                                    <td>{item.phonenumber}</td>
+                                                    <td>{item.address}</td>
+                                                    <td>{item.gender}</td>
+                                                    <td>
+                                                        <button
+                                                            className="btn-edit"
+                                                            onClick={() => this.handleEditUser(item)}
+                                                        >
+                                                            <i className="fas fa-pencil-alt">Edit</i>
+                                                        </button>
+                                                        <button
+                                                            className="btn-delete"
+                                                            onClick={() => this.handleDeleteUser(item)}
+                                                        >
+                                                            <i className="fas fa-trash">Delete</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </>
         );
     }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         language: state.app.language,
-//     };
-// };
+const mapStateToProps = state => {
+    return {
+        dataReduxUser: state.users
+    };
+};
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//     };
-// };
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteUserRedux: (userDelete) => dispatch({ type: 'DELETE_USER', payload: userDelete })
+    };
+};
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ListUser);
-export default ListUser;
+export default connect(mapStateToProps, mapDispatchToProps)(ListUser);
