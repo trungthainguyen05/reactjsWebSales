@@ -5,10 +5,12 @@ import reportWebVitals from './reportWebVitals';
 import App from './containers/App.js';
 
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+// import { createStore } from 'redux'
 import rootReducer from './store/reducers/rootReducer';
 
-const reduxStore = createStore(rootReducer)
+// const reduxStore = createStore(rootReducer)
+
+import reduxStore, { persistor } from './redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -22,7 +22,6 @@ class ListUser extends Component {
         })
 
         let genderList = await this.handleGetAllcodes('GENDER');
-        console.log('>>> Check genderList', genderList)
 
     }
 

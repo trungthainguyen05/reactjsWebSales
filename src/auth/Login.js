@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './Login.scss';
 import { handleLoginApi } from "../services/userService";
+import * as actions from "../store/actions";
 
 class Login extends Component {
 
@@ -46,9 +47,9 @@ class Login extends Component {
                 console.log('>>>check status', userInfo.errMessage)
             }
             if (userInfo && userInfo.errCode === 0) {
-                console.log('Login succeed', userInfo.user)
-
                 //Need to push user to the redux
+                this.props.userLoginSuccess(userInfo.user)
+                console.log('Login succeed: ', userInfo.user)
             }
 
         } catch (e) {
@@ -101,15 +102,15 @@ class Login extends Component {
                         </div>
                         <div className='col-12 icon-content'>
                             <div className='icon'>
-                                <i class="fab fa-facebook"></i>
+                                <i className="fab fa-facebook"></i>
                                 Facebook
                             </div>
                             <div className='icon'>
-                                <i class="fab fa-google"></i>
+                                <i className="fab fa-google"></i>
                                 Google
                             </div>
                             <div className='icon'>
-                                <i class="fab fa-apple"></i>
+                                <i className="fab fa-apple"></i>
                                 Apple
                             </div>
                         </div>
@@ -131,6 +132,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo))
     };
 };
 

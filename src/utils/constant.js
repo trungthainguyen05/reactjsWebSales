@@ -1,5 +1,5 @@
 export const ROUTE = {
-    VERSION: 'v1/',
+    VERSION: 'v1',
 }
 
 export const ALLCODESTYPE = {

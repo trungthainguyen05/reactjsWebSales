@@ -1,22 +1,32 @@
+import { combineReducers } from "redux";
+import { connectRouter } from "connected-react-router";
+import userReducer from "./userReducer";
+import appReducer from "./appReducer";
 
-const initState = {
-    users: [
-        { id: 1, name: 'Trung' },
-        { id: 2, name: 'Nguyen' }
-    ]
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+
+const persistCommonConfig = {
+    storage: storage,
+    stateReconciler: autoMergeLevel2,
+};
+
+const userPersistConfig = {
+    ...persistCommonConfig,
+    key: 'user',
+    whitelist: ['isLoggedIn', 'userInfo']
+};
+
+const appPersistConfig = {
+    ...persistCommonConfig,
+    key: 'app',
+    whitelist: ['language']
 }
 
-const rootReducer = (state = initState, action) => {
-    switch (action.type) {
-        case 'DELETE_USER':
-            console.log('>>> Run into delete user redux: ', action);
-            return state;
-        default:
-            return state;
-    }
-
-
-    return state;
-}
-
-export default rootReducer;
+export default (history) => combineReducers({
+    router: connectRouter(history),
+    user: persistReducer(userPersistConfig, userReducer),
+    app: persistReducer(appPersistConfig, appReducer),
+    // admin: adminReducer
+})
