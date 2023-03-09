@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.scss';
-import Nav from '../components/Nav';
+import HomeHeader from '../components/HomeHeader';
 import HomePage from './HomePage';
 import Contact from './Contact';
 import ListUser from '../Example/ListUser';
@@ -32,7 +32,7 @@ class App extends Component {
         return (
             <Router>
                 <div className='App'>
-                    <Nav />
+                    <HomeHeader />
                 </div>
                 <Routes>
                     <Route exact path="/" element={<HomePage />} />
