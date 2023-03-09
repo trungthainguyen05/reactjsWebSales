@@ -1,21 +1,3 @@
-// import createRootReducer from './store/reducers/rootReducer';
-// import { createStore } from 'redux'
-// import { createBrowserHistory } from 'history';
-// import { persistStore } from 'redux-persist';
-
-
-// export const history = createBrowserHistory({ basename: process.env.REACT_APP_ROUTER_BASE_NAME });
-
-// const rootReducer = createRootReducer(history)
-
-// const reduxStore = createStore(
-//     rootReducer,
-// )
-
-// export const dispatch = reduxStore.dispatch;
-// export const persistor = persistStore(reduxStore);
-// export default reduxStore;
-
 import { logger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import { routerMiddleware } from 'connected-react-router';
