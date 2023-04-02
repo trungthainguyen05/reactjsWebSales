@@ -70,20 +70,60 @@
             }
 
             .language {
+                cursor: text;
+                display: flex;
+                flex-direction: column;
 
                 .select-language {
-                    width: 70%;
+                    width: 100%;
                     border: none;
                     outline: none;
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+                    justify-content: center;
 
-                    .option-language {
+                    // span {
+                    //     cursor: pointer;
+                    //     color: dimgrey;
+                    // }
+                    .language-vi {
+                        cursor: pointer;
+                        opacity: 0.2;
 
-                        // height: 60px;
-                        &:hover {
-                            background: blueviolet;
+                        &.hover {
+                            color: blue !important;
+                            font-weight: 600 !important;
+                            opacity: 1;
+                        }
+
+                        &.active {
+                            color: blue !important;
+                            font-weight: 600 !important;
+                            opacity: 1;
                         }
                     }
+
+                    .language-en {
+                        cursor: pointer;
+                        opacity: 0.2;
+
+                        &.hover {
+                            color: blue !important;
+                            font-weight: 600 !important;
+                            opacity: 1;
+                        }
+
+                        &.active {
+                            color: blue !important;
+                            font-weight: 600 !important;
+                            opacity: 1;
+                        }
+                    }
+
                 }
+
+
             }
         }
     }

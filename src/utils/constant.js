@@ -8,3 +8,8 @@ export const ALLCODESTYPE = {
     STATUS: 'STATUS',
     PAYMENT: 'PAYMENT'
 }
+
+export const LANGUAGES = {
+    VI: 'vi',
+    EN: 'en'
+}

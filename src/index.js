@@ -11,13 +11,18 @@ import rootReducer from './store/reducers/rootReducer';
 // const reduxStore = createStore(rootReducer)
 
 import reduxStore, { persistor } from './redux';
+import IntlProviderWrapper from './HOC/IntlProviderWrapper';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+
     <Provider store={reduxStore}>
-      <App />
+      <IntlProviderWrapper>
+        <App persistor={persistor} />
+      </IntlProviderWrapper>
     </Provider>
+
   </React.StrictMode>
 );
 
