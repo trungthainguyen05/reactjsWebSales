@@ -18,6 +18,26 @@
 
             .login-input {
                 margin: 0 0 5px 0;
+
+                label {
+                    width: 130px;
+                }
+
+                input {
+                    width: 90%;
+                }
+
+                .custom-input-password {
+                    display: flex;
+
+                    i {
+                        font-size: 20px;
+                        cursor: pointer;
+                        position: relative;
+                        top: 6px;
+                        left: -30px;
+                    }
+                }
             }
 
             .btn-login-content {

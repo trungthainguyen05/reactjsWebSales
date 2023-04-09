@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './Login.scss';
-import { handleLoginApi } from "../services/userService";
-import * as actions from "../store/actions";
+import { handleLoginApi } from "../../services/userService";
+import * as actions from "../../store/actions";
+import { BrowserRouter as Router, Routes, Route, redirect, Navigate } from 'react-router-dom';
+import System from '../../routes/System';
+import { ToastContainer, toast } from 'react-toastify';
+import CustomToastContainer from '../../components/CustomToastContainer';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 class Login extends Component {
 
@@ -12,11 +18,21 @@ class Login extends Component {
             username: '',
             password: '',
             isShowPassword: false,
-            errMessage: ''
+            errMessage: '',
+            language: '',
+            // isLogin: '',
         }
     }
 
     async componentDidMount() {
+        // let copyState = { ...this.state };
+        // copyState["isLogin"] = this.props.isLoggedIn;
+        // this.setState({
+        //     ...copyState
+        // })
+    }
+
+    changeLanguage = (language) => {
 
     }
 
@@ -24,6 +40,7 @@ class Login extends Component {
         // if (prevProps.language !== this.props.language) {
 
         // }
+
     }
 
     handleOnChangeLogin = (event, id) => {
@@ -44,17 +61,34 @@ class Login extends Component {
                 this.setState({
                     errMessage: userInfo.errMessage,
                 })
-                console.log('>>>check status', userInfo.errMessage)
+                console.log('>>>check status', userInfo.errMessage);
+                toast.error(userInfo.errMessage);
             }
             if (userInfo && userInfo.errCode === 0) {
                 //Need to push user to the redux
                 this.props.userLoginSuccess(userInfo.user)
-                console.log('Login succeed: ', userInfo.user)
+                // console.log('Login succeed: ', userInfo.user)
+                toast.error("The login is successfully!")
+
             }
 
         } catch (e) {
             console.log(e);
         }
+    }
+
+    handleKeyDown = (event) => {
+        if (event.key == - "Enter" || event.keyCode === 13) {
+            this.handleLogin();
+        }
+    }
+
+    handleShowHidePassword = () => {
+        let copyState = { ...this.state };
+        copyState["isShowPassword"] = !this.state.isShowPassword;
+        this.setState({
+            ...copyState
+        })
     }
 
     render() {
@@ -76,15 +110,23 @@ class Login extends Component {
                                 name={'username'}
                             />
                         </div>
-                        <div className='form-group login-input col-12'>
+                        <div className='form-group login-input password col-12'>
                             <label>Password:</label>
-                            <input
-                                type="password"
-                                className='form-control'
-                                placeholder='Enter your password'
-                                onChange={(event) => this.handleOnChangeLogin(event, 'password')}
-                                name={'password'}
-                            />
+                            <div className='custom-input-password'>
+                                <input
+                                    type={this.state.isShowPassword ? "text" : "password"}
+                                    className='form-control'
+                                    placeholder='Enter your password'
+                                    onChange={(event) => this.handleOnChangeLogin(event, 'password')}
+                                    name={'password'}
+                                    onKeyDown={(event) => this.handleKeyDown(event)}
+                                />
+                                <span
+                                    onClick={() => { this.handleShowHidePassword() }}
+                                >
+                                    <i className={this.state.isShowPassword ? "fas fa-eye" : "fas fa-eye-slash"}></i>
+                                </span>
+                            </div>
                         </div>
                         <div className='col-12 btn-login-content'>
                             <button
@@ -119,6 +161,22 @@ class Login extends Component {
                         Advertising right
                     </div>
                 </div>
+                {this.props.isLoggedIn &&
+                    <Navigate to="/system" replace />
+                }
+
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
+
             </div>
         );
     }
@@ -126,7 +184,8 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
-        // language: state.app.language,
+        language: state.app.language,
+        isLoggedIn: state.user.isLoggedIn,
     };
 };
 

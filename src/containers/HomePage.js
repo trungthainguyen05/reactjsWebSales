@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import './HomePage.scss';
-// import { withRouter } from "react-router-dom";
-// import Color from '../HOC/Color';
-
+import { connect } from "react-redux";
+import { changeLanguageApp } from '../store/actions';
 
 
 class HomePage extends Component {
@@ -14,56 +12,42 @@ class HomePage extends Component {
         }
     }
 
-    async componentDidMount() {
+    changeLanguage = (language) => {
+        this.props.changeLanguageAppRedux(language);
+    }
 
+    async componentDidMount() {
+        let { isLoggedIn } = this.props;
     }
 
     componentDidUpdate(prevProps, PrevState, SnapShot) {
-        // if (prevProps.language !== this.props.language) {
+        if (prevProps.language !== this.props.language) {
 
-        // }
+        }
     }
 
-    render() {
-        return (
 
-            <div className="container" >
-                <div className="row">
-                    <div className="col-6 form-group">
-                        <label>
-                            Age:
-                        </label>
-                        <input className="form-control"
-                            value={this.state.fullName}
-                            onChange={(event) => this.handleOnChangeInput(event, 'fullName')}
-                        />
-                    </div>
-                    <div className="col-6 form-group">
-                        <label>
-                            Ten:
-                        </label>
-                        <input className="form-control"
-                            value={this.state.fullName}
-                            onChange={(event) => this.handleOnChangeInput(event, 'fullName')}
-                        />
-                    </div>
-                </div>
-            </div>
+    render() {
+
+        return (
+            <React.Fragment>
+                <div>this is the homepage</div>
+            </React.Fragment>
         );
     }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         language: state.app.language,
-//     };
-// };
+const mapStateToProps = state => {
+    return {
+        language: state.app.language,
+        isLoggedIn: state.user.isLoggedIn,
+    };
+};
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//     };
-// };
+const mapDispatchToProps = dispatch => {
+    return {
+        changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language))
+    };
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
-// export default HomePage;
-export default HomePage;
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

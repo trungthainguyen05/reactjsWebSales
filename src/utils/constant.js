@@ -13,3 +13,10 @@ export const LANGUAGES = {
     VI: 'vi',
     EN: 'en'
 }
+
+export const PATH = {
+    LOGIN: '/login',
+    SYSTEM: '/system',
+    HOME: '/',
+
+}
